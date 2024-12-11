@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{info.logo.url}}" class="rounded-3" type="image/x-icon">
+    <title>Iqbal Trades</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   
+  </head>
+  <body>
+    <header class="container-fluid top-bar d-none d-sm-block">
+      <!-- Top Bar -->
+      <div class="container  d-flex justify-content-between align-items-center">
+        <!-- Left Side (Languages) -->
+        <div>
+          <span class="font-family-arial">{{info.sitename}}</span>
+        </div>
+
+        <!-- Right Side (Contact Info and Social Icons) -->
+        <div class="d-flex align-items-center fs-7">
+           <div class="divider"></div>
+          <div class="me-3 d-flex align-items-center">
+            <i class="bi bi-telephone-fill me-2"></i>
+            <a href="tel:{{info.phone}}">{{info.phone}}</a>
+          </div>
+          <div class="divider"></div>
+          <div class="me-3 d-flex align-items-center">
+            <i class="bi bi-envelope-fill me-2"></i>
+            <a href="mailto:{{info.email}}">{{info.email}}</a>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <a href="{{info.sociallink}}" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- navbar -->
+     <!-- Navbar -->
+  <nav class="navbar text-uppercase navbar-expand-lg">
+    <div class="container">
+      <!-- Logo Section -->
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="{{info.logo.url}}" alt="Logo">
+      </a>
+      
+      <!-- Navbar Toggle Button for Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Visa Type</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Visa Fees</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Tracking</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Notice</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Downloads</a>
+          </li>
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- banner -->
+  <section>
+    <div id="carouselExampleSlidesOnly" class="carousel slide h-10" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+          {% for imgaes in images %}
+          <div class="carousel-item active">
+            <img  src="{{imgaes.image.url}}" class="w-100  d-block " alt="...">
+          </div>
+          {% endfor %}
+          
+        </div>
+      </div>
+  </section>
+
+
+    <!-- Tracking -->
+  <section class=" my-5">
+
+    <h2 class="mx-auto px-5">Track & Retrieve your Passport</h2>
+    <hr class="container-fluid">
+
+
+    <div class="container ">
+
+      <h2 class="fs-5 text-danger">Visa Track </h2>
+                <hr class="w-50">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="track col-md-6 my-5 ">
+                
+        
+                <div class="box mx-auto col-md-6">
+                    <p class="fs-5 fw-bold">Enter Reference for track your Application</p>
+        
+                
+
+                    {% block content %}
+                    {% include 'track_visa.html' %}
+                    {% endblock content %}
+
+
+                   
+                </div>
+            </div>
+            <div style="max-height: 500px;" class=" card p-0 col-md-6 h-25 rounded-3 overflow-hidden">
+                <img src="{{images.0.image.url}}" class=" img-fluid h-25 d-block " alt="...">
+            </div>
+        </div>
+       
+        
+    </div>
+
+    
+  </section>
+
+
+
+  <section>
+    <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <!-- Popular Services -->
+        <div class="col-md-3">
+          <h5>Popular Services</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">➔ Helpful Links</a></li>
+            <li><a href="#">➔ Find Our Location</a></li>
+            <li><a href="#">➔ Holidays & Closures</a></li>
+            <li><a href="#">➔ Track & Retrieve My Passport</a></li>
+          </ul>
+        </div>
+        <!-- Get in Touch -->
+        <div class="col-md-3">
+          <h5>Get in Touch</h5>
+          <p><strong><i class="bi bi-building"></i> Iqbal Trades</strong></p>
+          <p>Visit Iqbal Trades Website</p>
+          <p><i class="bi bi-geo-alt"></i> Thailand Visa Application Center<br>
+            Saimon Center, House#4A, Road#22, Gulshan-1, Dhaka-1212
+          </p>
+          <p><i class="bi bi-telephone"></i> (+88) 09606 556655</p>
+          <p><i class="bi bi-envelope"></i> support@thaivisabd.com</p>
+        </div>
+        <!-- About Us -->
+        <div class="col-md-3">
+          <h5>About Us</h5>
+          <p>
+            It has been more than 1.5 decades since we have been serving the business by covering A-Z of this 
+            particular service sector with quality work, competitively priced travel management & customer 
+            contentment.
+          </p>
+        </div>
+        <!-- Newsletter -->
+        <div class="col-md-3">
+          <h5>Newsletter</h5>
+          <p>Sign up with your name and email to get updates fresh updates.</p>
+          <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Your Name">
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Email Address">
+            </div>
+            <button type="submit" class="btn btn-block w-100">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom py-4 fs-6">
+      © 2019-2024 Thailand Visa Application Center, All rights reserved.
+    </div>
+  </footer>
+  
+  </section>
+ 
+
+    <!-- Bootstrap Icons -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

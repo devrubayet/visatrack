@@ -1,0 +1,60 @@
+{% block content %}
+
+{% load static %}
+<div class="card p-3">
+    <form id="visa-status-form" class="row g-3 justify-content-end" method="post">
+      {% csrf_token %}
+      <div class="w-100">
+          <label for="reference_number" class="visually-hidden"></label>
+          <input type="text" name="reference_number" class="form-control w-100 bg-input outline-none" 
+                 id="reference_number" placeholder="Reference" required>
+      </div>
+      <div class="col-auto">
+          <button type="submit" class="btn btn-secondary mb-3">Track</button>
+      </div>
+    </form>
+    
+    <div id="visa-status-result">
+        <!-- The result will be inserted here -->
+    </div>
+</div>
+
+<script>
+    document.getElementById('visa-status-form').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent page reload
+        
+        const referenceNumber = document.getElementById('reference_number').value;
+        const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+
+        // Make AJAX request to the server
+        fetch("{% url 'track_application' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({ reference_number: referenceNumber })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('visa-status-result');
+            if (data.error_message) {
+                resultDiv.innerHTML = `<p style="color: red;">${data.error_message}</p>`;
+            } else if (data.details) {
+                resultDiv.innerHTML = `
+                    <h2>Application Details</h2>
+                    <p><strong>Reference Number:</strong> ${data.details.reference_number}</p>
+                    <p><strong>Visa Name:</strong> ${data.details.visa_name}</p>
+                    <p><strong>Visa Status:</strong> ${data.details.visa_status}</p>
+                    <p><strong>Applicant Name:</strong> ${data.details.applicant_name}</p>
+                    <p><strong>Submission Date:</strong> ${data.details.submission_date}</p>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+{% endblock %}
