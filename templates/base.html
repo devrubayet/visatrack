@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{info.logo.url}}" class="rounded-3" type="image/x-icon">
+    <title>Iqbal Trades</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   
+  </head>
+  <body>
+    <header class="container-fluid top-bar d-none d-sm-block">
+      <!-- Top Bar -->
+      <div class="container  d-flex justify-content-between align-items-center">
+        <!-- Left Side (Languages) -->
+        <div>
+          <span class="font-family-arial">{{info.sitename}}</span>
+        </div>
+
+        <!-- Right Side (Contact Info and Social Icons) -->
+        <div class="d-flex align-items-center fs-7">
+           <div class="divider"></div>
+          <div class="me-3 d-flex align-items-center">
+            <i class="bi bi-telephone-fill me-2"></i>
+            <a href="tel:{{info.phone}}">{{info.phone}}</a>
+          </div>
+          <div class="divider"></div>
+          <div class="me-3 d-flex align-items-center">
+            <i class="bi bi-envelope-fill me-2"></i>
+            <a href="mailto:{{info.email}}">{{info.email}}</a>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <a href="{{info.sociallink}}" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- navbar -->
+     <!-- Navbar -->
+  <nav class="navbar text-uppercase navbar-expand-lg">
+    <div class="container">
+      <!-- Logo Section -->
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img class="img-fluid" src="{{info.logo.url}}" alt="Logo">
+      </a>
+      
+      <!-- Navbar Toggle Button for Mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link menu-item dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Visa
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              {% for visa in visa_list %}
+              <li><a class="dropdown-item" href="{% url 'visa_details' visa.visa_name %}">{{ visa.visa_name }}</a></li>
+              {% endfor %}
+
+              
+            </ul>
+          </li>
+          
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Packages</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="menu-item nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+ <main>
+    {% block content %}
+        <!-- Default content -->
+        {% endblock %}
+
+ </main>
+
+    <!-- Tracking -->
+  
+
+
+
+  <section>
+    <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row d-flex justify-content-around">
+        <!-- Popular Services -->
+        
+        <!-- Get in Touch -->
+        <div class="col-md-6">
+          <h5>Get in Touch</h5>
+          <p><strong><i class="bi bi-building"></i> {{info.sitename}}</strong></p>
+          <p>{{info.site_slogan}}</p>
+          <p><i class="bi bi-geo-alt"></i> {{info.office_address}}
+          </p>
+          <p><i class="bi bi-telephone"></i> {{info.office_phone}}</p>
+          <p><i class="bi bi-envelope"></i> {{info.office_email}}</p>
+        </div>
+        <!-- About Us -->
+        <div class="col-md-6">
+          <h5>About Us</h5>
+          <p>
+            {{info.about_us}}
+          </p>
+        </div>
+        <!-- Newsletter -->
+        
+      </div>
+    </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom py-4 fs-6">
+      © 2019-2024 {{info.sitename}}, All rights reserved.
+    </div>
+  </footer>
+  
+  </section>
+ 
+
+    <!-- Bootstrap Icons -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

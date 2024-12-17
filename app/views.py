@@ -7,30 +7,20 @@ import json
 from .models import Information
 from .models import CheckStatus
 from .models import Slider
+from .models import VisaList
 from .forms import ReferenceForm
 # Create your views here.
 def index(request):
     info = Information.objects.all()[Information.objects.count() - 1]
+    visa_list = VisaList.objects.all()
 
-    # details = None  # Initialize to None for first-time page load
-    # error_message = None  # Default value for error message
 
-    # if request.method == "POST":
-    #     reference_number = request.POST.get('reference_number')  # Match this with the form's name attribute
-    #     print("Submitted Reference Number:", reference_number)  # Debugging log
-    #     if reference_number:
-    #         try:
-    #             # Fetch the record matching the reference number
-    #             details = CheckStatus.objects.get(reference_number=reference_number)
-    #         except CheckStatus.DoesNotExist:
-    #             # If no record is found, set an error message
-    #             error_message = "No application found with this reference number."
-    
 
     images = Slider.objects.filter(is_active=True).order_by('-created_at')
     context={
         'info':info,
         'images':images,
+        'visa_list':visa_list
         # 'error_message':error_message
     }
     return render(request, 'index.html',  context)
@@ -73,3 +63,19 @@ def track_application(request):
         }
 
         return JsonResponse(response_data)
+
+
+def visa_details(request, visa_name):
+    info = Information.objects.all()[Information.objects.count() - 1]
+    visa_list = VisaList.objects.all()
+    visa_details= get_object_or_404(VisaList, visa_name=visa_name)
+
+    images = Slider.objects.filter(is_active=True).order_by('-created_at')
+    context={
+        'info':info,
+        'images':images,
+        'visa_list':visa_list,
+        'visa_details':visa_details
+        # 'error_message':error_message
+    }
+    return render(request, 'visa-details.html',context)

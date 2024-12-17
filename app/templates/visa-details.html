@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+<!-- {% load static %} -->
+
+{% block content %}
+  <!-- banner -->
+  <section>
+    <div id="carouselExampleSlidesOnly" class="carousel slide h-10" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+          {% for image in visa_details.images.all %}
+          <div class="carousel-item active">
+            <img  src="{{image.image.url}}" class="w-100  d-block " alt="...">
+          </div>
+          {% endfor %}
+          
+        </div>
+      </div>
+  </section>
+
+
+  <section class="container">
+    <div class="card py-5 my-5 p-3">
+      <div class="card-title title">
+        <h2 class="title">{{visa_details.visa_name}}</h2>
+      </div>
+        <div class="card-body">
+            <p>{{visa_details.description}}</p>
+        </div>
+    </div>
+
+  </section>
+
+ {% endblock content %}
