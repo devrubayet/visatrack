@@ -133,3 +133,17 @@ body{
 .bg-input{
     background-color: #e8e7e7;
 }
+
+.dropdown-menu{
+    background: #00bce1 !important;
+    overflow: hidden !important;
+    outline: none !important;
+    border: none !important;
+  }
+.dropdown-item{
+    color: white !important;
+}
+.dropdown-item:hover{
+    color: #ff416c !important;
+    background: transparent !important;
+}

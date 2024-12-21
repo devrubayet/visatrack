@@ -36,10 +36,21 @@
             <a href="mailto:{{info.email}}">{{info.email}}</a>
           </div>
           <div class="divider"></div>
-          <div>
-            <a href="{{info.sociallink}}" class="social-icon">
-              <i class="bi bi-facebook"></i>
-            </a>
+          <div class="social-icons ">
+
+            {% for link in info.social_links.all %}
+        <a href="{{ link.url }}" class="social-icon text-decoration-none px-2">
+            {% if link.platform_name == 'Facebook' %}
+                <i class="bi bi-facebook"></i>
+            {% elif link.platform_name == 'Twitter' %}
+               <i class="bi bi-twitter"></i>
+            {% elif link.platform_name == 'Linked In' %}
+                <i class="bi bi-linkedin"></i>
+            {% endif %}
+        </a>
+    {% endfor %}
+            
+            
           </div>
         </div>
       </div>
@@ -51,7 +62,7 @@
     <div class="container">
       <!-- Logo Section -->
       <a class="navbar-brand" href="{% url 'home' %}">
-        <img class="img-fluid" src="{{info.logo.url}}" alt="Logo">
+        <img class="img-fluid" src="{{ info.logo.url }}" alt="Logo">
       </a>
       
       <!-- Navbar Toggle Button for Mobile -->
@@ -62,28 +73,37 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="menu-item nav-link" href="#">Home</a>
+            <a class="menu-item nav-link" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link menu-item dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link menu-item dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Visa
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              {% for visa in visa_list %}
-              <li><a class="dropdown-item" href="{% url 'visa_details' visa.visa_name %}">{{ visa.visa_name }}</a></li>
-              {% endfor %}
+            <ul class="dropdown-menu text-light" aria-labelledby="dropdownMenuLink">
+              
+                {% for visa in visa_list %}
+                <li><a class="dropdown-item " href="{% url 'visa_details' visa.visa_name %}">{{ visa.visa_name }}</a></li>
+                {% endfor %}
 
               
             </ul>
           </li>
           
-          <li class="nav-item">
-            <a class="menu-item nav-link" href="#">Packages</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link menu-item dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Package
+            </a>
+            <ul class="dropdown-menu text-light" aria-labelledby="dropdownMenuLink">
+              
+              {% for package in package_list %}
+              <li><a class="dropdown-item" href="{% url 'package-details' package.package_name %}">{{ package.package_name }}</a></li>
+              {% endfor %}
+
+              
+            </ul>
           </li>
-         
           <li class="nav-item">
-            <a class="menu-item nav-link" href="#">Contact Us</a>
+            <a class="menu-item nav-link" href="{% url 'contact-us' %}">Contact Us</a>
           </li>
         </ul>
       </div>
@@ -143,5 +163,24 @@
     <!-- Bootstrap Icons -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+     <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('mouseenter', function () {
+        this.classList.add('show');
+        this.querySelector('.dropdown-menu').classList.add('show');
+      });
+
+      dropdown.addEventListener('mouseleave', function () {
+        this.classList.remove('show');
+        this.querySelector('.dropdown-menu').classList.remove('show');
+      });
+    });
+  });
+</script>
+
   </body>
 </html>

@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const saveAndAddAnotherButton = document.querySelector('button[name="_addanother"]');
+document.addEventListener('DOMContentLoaded', function () {
+    const saveAndAddAnotherButton = document.querySelector('input[name="_addanother"]');
     if (saveAndAddAnotherButton) {
-        saveAndAddAnotherButton.style.display = 'none';
+        saveAndAddAnotherButton.style.display = 'none'; // Hide the button
     }
 });

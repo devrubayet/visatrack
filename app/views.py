@@ -8,11 +8,13 @@ from .models import Information
 from .models import CheckStatus
 from .models import Slider
 from .models import VisaList
+from .models import PackageList
 from .forms import ReferenceForm
 # Create your views here.
 def index(request):
     info = Information.objects.all()[Information.objects.count() - 1]
     visa_list = VisaList.objects.all()
+    package_list = PackageList.objects.all()
 
 
 
@@ -20,7 +22,8 @@ def index(request):
     context={
         'info':info,
         'images':images,
-        'visa_list':visa_list
+        'visa_list':visa_list,
+        'package_list':package_list
         # 'error_message':error_message
     }
     return render(request, 'index.html',  context)
@@ -68,6 +71,7 @@ def track_application(request):
 def visa_details(request, visa_name):
     info = Information.objects.all()[Information.objects.count() - 1]
     visa_list = VisaList.objects.all()
+    package_list = PackageList.objects.all()
     visa_details= get_object_or_404(VisaList, visa_name=visa_name)
 
     images = Slider.objects.filter(is_active=True).order_by('-created_at')
@@ -75,7 +79,47 @@ def visa_details(request, visa_name):
         'info':info,
         'images':images,
         'visa_list':visa_list,
-        'visa_details':visa_details
+        'visa_details':visa_details,
+        'package_list':package_list
         # 'error_message':error_message
     }
     return render(request, 'visa-details.html',context)
+
+
+def package_details(request, package_name):
+    info = Information.objects.all()[Information.objects.count() - 1]
+    package_list = PackageList.objects.all()
+
+    package_details= get_object_or_404(PackageList, package_name=package_name)
+    images = Slider.objects.filter(is_active=True).order_by('-created_at')
+    context={
+        'info':info,
+        'images':images,        
+        'package_list':package_list,
+        'package_details':package_details
+
+        # 'error_message':error_message    
+    }
+    return render(request, 'package.html',context)
+
+
+
+
+def contact_us(request):
+
+    info = Information.objects.all()[Information.objects.count() - 1]
+    visa_list = VisaList.objects.all()
+    package_list = PackageList.objects.all()
+
+
+
+    images = Slider.objects.filter(is_active=True).order_by('-created_at')
+    context={
+        'info':info,
+        'images':images,
+        'visa_list':visa_list,
+        'package_list':package_list
+        # 'error_message':error_message
+    }
+    
+    return render(request, 'contact_us.html',  context)
